@@ -12,7 +12,7 @@ const MangerSignUp = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
 
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   const validateUser = (user: any) => {
     let userValid = {
@@ -96,15 +96,15 @@ const MangerSignUp = () => {
     setShowPassword(!showPassword);
   }
 
-  const longinButton = <Button onClick={() => router.push('/manager/login')} className='hover:bg-inherit'>login</Button>
+  const longinButton = <Button onClick={() => router.push('/manager/login')} className='hover:bg-inherit  text-sky-800 text-bold'>login</Button>
 
-  const testFieldStyle = "w-2/3 m-5"
+  const testFieldStyle = "w-2/3 m-4"
 
   return (
     <main className="min-h-screen p-24">
-      <Box component="form" className="bg-white h-200 m-auto flex flex-col justify-center items-center rounded-lg w-2/3">
-        <Typography component='h2' variant='h4' color='black' mt={4}>Sign Up</Typography>
-        <Typography variant="body1" color="black">register and build your shelter now!</Typography>
+      <Box component="form" className="bg-inherit border-white border-solid border-4  min-h-56 min-w-52 h-4/5 w-3/5 m-auto flex flex-col justify-center items-center rounded-lg">
+        <Typography component='h2' variant='h4' color='white' mt={4}>Sign Up</Typography>
+        <Typography variant="body1" color="white">register and build your shelter now!</Typography>
         <TextField
           className={testFieldStyle}
           label='Name'
@@ -158,11 +158,11 @@ const MangerSignUp = () => {
             )
           }}>
         </TextField>
-        <Button onClick={handleSubmit} variant='contained'
-        className='bg-blue-500 m-4 h-10 w-1/2 hover:bg-blue-800'>
+        <button onClick={handleSubmit}
+        className='border-white rounded-md border-2 h-10 w-1/2 hover:bg-grey-500 text-white'>
           Sign up
-        </Button>
-        <Typography variant="body1" color="black" m={4}>Already have an account? {longinButton}</Typography>
+        </button>
+        <Typography variant="body1" color="white" m={3}>Already have an account? {longinButton}</Typography>
       </Box>
     </main>
   )
