@@ -1,5 +1,6 @@
 {
   "/page": "app/page.js",
-  "/manager/page": "app/manager/page.js",
-  "/manager/signup/page": "app/manager/signup/page.js"
+  "/manager/signup/page": "app/manager/signup/page.js",
+  "/manager/create-shelter/page": "app/manager/create-shelter/page.js",
+  "/manager/page": "app/manager/page.js"
 }

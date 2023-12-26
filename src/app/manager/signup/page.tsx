@@ -4,6 +4,7 @@ import { Box, IconButton, InputAdornment, TextField, Button, Typography } from '
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import validateUser from '@/app/utils/signupValidation';
 
 const MangerSignUp = () => {
 
@@ -13,53 +14,6 @@ const MangerSignUp = () => {
   const phoneRef = useRef<HTMLInputElement>(null);
 
   const [showPassword, setShowPassword] = useState(false);
-
-  const validateUser = (user: any) => {
-    let userValid = {
-      name: true,
-      email: true,
-      password: true,
-      phone: true
-    };
-
-    let errors = {
-      name: '',
-      email: '',
-      password: '',
-      phone: ''
-    };
-
-    if (!user.name) {
-      userValid.name = false;
-      errors.name = 'Name is required';
-    }
-
-    if (!user.email) {
-      userValid.email = false;
-      errors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(user.email)) {
-      userValid.email = false;
-      errors.email = 'Email address is invalid';
-    }
-
-    if (!user.password) {
-      userValid.password = false;
-      errors.password = 'Password is required';
-    } else if (user.password.length < 6) {
-      userValid.password = false;
-      errors.password = 'Password must be 6 or more characters';
-    }
-
-    if (!user.phone) {
-      userValid.phone = false;
-      errors.phone = 'Phone is required';
-    } else if (!/^\d+$/.test(user.phone)) {
-      userValid.phone = false;
-      errors.phone = 'Phone number is invalid';
-    }
-
-    return { userValid, errors };
-  }
 
   const [userValid, setUserValid] = useState({
     name: true,
@@ -77,6 +31,14 @@ const MangerSignUp = () => {
 
   const router = useRouter();
 
+  const sendToServer = (user: any) => {
+    // TODO: send to server
+    // fetch('http://localhost:8080/manager/signup', {})
+    // if response is ok -> save credentilas and router.push('/manager/create-shelter')
+    // else -> show error messages
+    router.push('/manager/create-shelter');
+  }
+
   const handleSubmit = () => {
     let user = {
       name: nameRef.current?.value,
@@ -89,14 +51,14 @@ const MangerSignUp = () => {
     setUserValid(userValid);
     setErrors(errors);
 
-    userValid.name && userValid.email && userValid.password && userValid.phone && router.push('/manager');
+    userValid.name && userValid.email && userValid.password && userValid.phone && sendToServer(user);
   }
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   }
 
-  const longinButton = <Button onClick={() => router.push('/manager/login')} className='hover:bg-inherit  text-sky-800 text-bold'>login</Button>
+  const longinButton = <Button onClick={() => router.push('/manager/signin')} className='hover:bg-inherit  text-sky-800 text-bold'>login</Button>
 
   const testFieldStyle = "w-2/3 m-4"
 
