@@ -37,6 +37,7 @@ const MangerSignUp = () => {
   const router = useRouter();
 
   const sendToServer = async (user: any) => {
+    console.log('send to server')
     let response = await signupController.sendPostRequest(user, MANAGER_SIGNUP_ENDPOINT)
     let jsonResponse = await toJSON(response.body!)
     let responseStatus = response.status
@@ -55,6 +56,8 @@ const MangerSignUp = () => {
       password: passwordRef.current?.value,
       phone: phoneRef.current?.value
     }
+
+    console.log('handle submit')
 
     let {userValid, errors} = validateUser(user);
     setUserValid(userValid);
