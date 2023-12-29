@@ -16,20 +16,20 @@
       "static/chunks/main-app.js",
       "static/chunks/app/manager/signup/page.js"
     ],
-    "/manager/create-shelter/page": [
+    "/manager/signin/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/manager/create-shelter/page.js"
+      "static/chunks/app/manager/signin/page.js"
     ],
     "/manager/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/manager/page.js"
     ],
-    "/manager/signin/page": [
+    "/not-found": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/manager/signin/page.js"
+      "static/chunks/app/not-found.js"
     ]
   }
 }

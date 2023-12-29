@@ -1,7 +1,7 @@
 {
+  "/not-found": "app/not-found.js",
   "/page": "app/page.js",
   "/manager/signup/page": "app/manager/signup/page.js",
-  "/manager/create-shelter/page": "app/manager/create-shelter/page.js",
-  "/manager/page": "app/manager/page.js",
-  "/manager/signin/page": "app/manager/signin/page.js"
+  "/manager/signin/page": "app/manager/signin/page.js",
+  "/manager/page": "app/manager/page.js"
 }

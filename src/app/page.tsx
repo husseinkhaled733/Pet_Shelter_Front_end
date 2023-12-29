@@ -3,6 +3,7 @@
 import React from 'react'
 import { Box, Button } from '@mui/material'
 import { useRouter } from 'next/navigation'
+import { MANAGER_SIGNUP_ROUTE, STAFF_LOGIN_ROUTE, ADOPTER_SIGNUP_ROUTE } from './constants/routes'
 
 export default function Home() {
 
@@ -15,7 +16,7 @@ export default function Home() {
   const router = useRouter()
 
   const handleClick = (page: string) => {
-    router.push(`/${page}`)
+    router.push(page)
   }
 
   return (
@@ -23,13 +24,13 @@ export default function Home() {
       <Box className={boxStyle}>
         <h1 className={titleStyle}>Welcom to our Pet shelter</h1>
         <h2 className={fontStyle}>You want to register as..</h2>
-        <Button variant='outlined' className={buttonStyle} onClick={() => handleClick('manager/signup')}>
+        <Button variant='outlined' className={buttonStyle} onClick={() => handleClick(MANAGER_SIGNUP_ROUTE)}>
           Manager
         </Button>
-        <Button variant='outlined' className={buttonStyle} onClick={() => handleClick('staff/login')}>
+        <Button variant='outlined' className={buttonStyle} onClick={() => handleClick(STAFF_LOGIN_ROUTE)}>
           Staff member
         </Button>
-        <Button variant='outlined' className={buttonStyle} onClick={() => handleClick('adopter/signup')}>
+        <Button variant='outlined' className={buttonStyle} onClick={() => handleClick(ADOPTER_SIGNUP_ROUTE)}>
           Adopter
         </Button>
       </Box>

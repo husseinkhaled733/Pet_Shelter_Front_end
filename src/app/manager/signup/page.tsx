@@ -5,6 +5,7 @@ import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import validateUser from '@/app/utils/signupValidation';
+import { MANAGER_CREATE_SHELTER_ROUTE, MANAGER_LOGIN_ROUTE } from '@/app/constants/routes';
 
 const MangerSignUp = () => {
 
@@ -36,7 +37,7 @@ const MangerSignUp = () => {
     // fetch('http://localhost:8080/manager/signup', {})
     // if response is ok -> save credentilas and router.push('/manager/create-shelter')
     // else -> show error messages
-    router.push('/manager/create-shelter');
+    router.push(MANAGER_CREATE_SHELTER_ROUTE);
   }
 
   const handleSubmit = () => {
@@ -58,7 +59,7 @@ const MangerSignUp = () => {
     setShowPassword(!showPassword);
   }
 
-  const longinButton = <Button onClick={() => router.push('/manager/signin')} className='hover:bg-inherit  text-sky-800 text-bold'>login</Button>
+  const longinButton = <Button onClick={() => router.push(MANAGER_LOGIN_ROUTE)} className='hover:bg-inherit  text-sky-800 text-bold'>signin</Button>
 
   const testFieldStyle = "w-2/3 m-4"
 

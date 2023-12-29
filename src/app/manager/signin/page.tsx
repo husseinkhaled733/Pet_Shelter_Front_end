@@ -5,6 +5,7 @@ import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import validateUser from '@/app/utils/signupValidation';
+import { MANAGER_DASHBOARD_ROUTE } from '@/app/constants/routes';
 
 const MangerSignin = () => {
 
@@ -30,8 +31,7 @@ const MangerSignin = () => {
     // fetch('http://localhost:8080/manager/signup', {})
     // if response is ok -> save credentilas and router.push('/manager/create-shelter')
     // else -> show error messages
-    console.log('send to server');
-    router.push('/manager');
+    router.push(MANAGER_DASHBOARD_ROUTE);
   }
 
   const validateSignin = (user: any) => {
