@@ -4,7 +4,6 @@ import { Box, IconButton, InputAdornment, TextField, Button, Typography } from '
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import validateUser from '@/app/utils/signupValidation';
 import { MANAGER_DASHBOARD_ROUTE } from '@/app/constants/routes';
 
 const MangerSignin = () => {

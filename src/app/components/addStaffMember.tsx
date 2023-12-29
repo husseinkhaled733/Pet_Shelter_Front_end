@@ -6,30 +6,28 @@ import { useState, useRef } from 'react';
 const StaffMemberForm = () => {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
-  const roleRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
 
   const [userValid, setUserValid] = useState({
     name: true,
     email: true,
-    role: true,
     phone: true
   });
 
   const [errors, setErrors] = useState({
     name: '',
     email: '',
-    phone: '',
-    role: ''
+    phone: ''
   });
 
   const allValid = (userValid: any) => {
-    return userValid.name && userValid.email && userValid.phone && userValid.role;
+    return userValid.name && userValid.email && userValid.phone;
   }
 
   const sendToServer = (staff: any) => {
     // TODO: send to server
     staff.password = ('@' + staff.name + '123').toLowerCase().replaceAll(' ', '');
+    staff.role = 'staff'
 
     console.log(staff);
     console.log('send to server');
@@ -40,15 +38,13 @@ const StaffMemberForm = () => {
     let staffValid = {
       name: true,
       email: true,
-      phone: true,
-      role: true
+      phone: true
     };
     
     let errors = {
       name: '',
       email: '',
       phone: '',
-      role: ''
     };
 
     if (!staff.name) {
@@ -72,11 +68,6 @@ const StaffMemberForm = () => {
       errors.phone = 'Phone number is invalid';
     }
 
-    if (!staff.role) {
-      staffValid.role = false;
-      errors.role = 'Role is required';
-    }
-
     return {staffValid, errors};
   }
 
@@ -86,7 +77,6 @@ const StaffMemberForm = () => {
       name: nameRef.current?.value,
       email: emailRef.current?.value,
       phone: phoneRef.current?.value,
-      role: roleRef.current?.value
     }
 
     let {staffValid, errors} = validateShelter(staff);
@@ -111,16 +101,6 @@ const StaffMemberForm = () => {
           variant='filled'
           error={!userValid.name}
           helperText={(userValid.name)? '' : errors.name}>
-        </TextField>
-        <TextField
-          className={testFieldStyle}
-          label='Role'
-          placeholder="Member's role"
-          inputRef={roleRef}
-          required
-          variant='filled'
-          error={!userValid.role}
-          helperText={(userValid.role)? '' : errors.role}>
         </TextField>
         <TextField
           className={testFieldStyle}
