@@ -12,6 +12,7 @@ export const dummyPetData = {
   relevantDocuments: ['Vaccination Records'],
   availableStatus: 'Available',
   shelter: 'Miami',
+  age:4,
   images: ['/cat_pablo.jpg'], // Provide the correct path to your image
 };
 
@@ -27,6 +28,7 @@ export const dummyPetData1 = {
   description: 'Fluffy is a lovely Golden Retriever looking for a home.',
   relevantDocuments: ['Health Certificate'],
   availableStatus: 'Available',
+  age:4,
   shelter: 'New York',
   images: ['/dog_fluffy.jpg'], // Provide the correct path to your image
 };
@@ -44,6 +46,7 @@ export const dummyPetData2 = {
   relevantDocuments: ['Neutering Certificate'],
   availableStatus: 'Adopted',
   shelter: 'Los Angeles',
+  age:4,
   images: ['/cat_whiskers.jpg'], // Provide the correct path to your image
 };
 
@@ -60,6 +63,7 @@ export const dummyPetData3 = {
   relevantDocuments: ['Flea Treatment Receipt'],
   availableStatus: 'Available',
   shelter: 'Chicago',
+  age:4,
   images: ['/dog_buddy.jpg'], // Provide the correct path to your image
 };
 
