@@ -42,7 +42,7 @@ const MangerSignUp = () => {
     let responseStatus = response.status
     let {isUserValid, errors} = signupServerFormValidation(responseStatus, jsonResponse, user)
     setUserValid(isUserValid)
-    setErrors(errors)
+    setErrors(errors);
 
     (responseStatus == 200) && router.push(MANAGER_CREATE_SHELTER_ROUTE)
     

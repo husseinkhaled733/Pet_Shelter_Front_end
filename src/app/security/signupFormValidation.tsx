@@ -1,14 +1,14 @@
 import buildAuthToken from '@/app/utils/securityUtil'
 
 let isUserValid = {
-    user: true,
+    name: true,
     email: true,
     password: true,
     phone: true
 };
 
 let errors = {
-    user: "",
+    name: "",
     email: "",
     password: "",
     phone: ""
