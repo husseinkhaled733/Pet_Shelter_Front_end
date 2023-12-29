@@ -1,9 +1,0 @@
-{
-  "/page": "app/page.js",
-  "/manager/page": "app/manager/page.js",
-  "/staff/signin/page": "app/staff/signin/page.js",
-  "/staff/page": "app/staff/page.js",
-  "/adopter/signup/page": "app/adopter/signup/page.js",
-  "/adopter/signin/page": "app/adopter/signin/page.js",
-  "/adopter/page": "app/adopter/page.js"
-}
