@@ -9,6 +9,7 @@ import {
   dummyPetData3,
 }
   from "../../Home/dummyPetData";
+import Link from "next/link";
 
 const PetProfile = ({ params }: any) => {
   const petDataList = [
@@ -21,13 +22,13 @@ const PetProfile = ({ params }: any) => {
   const pet = petDataList[params.petId - 1];
 
   return (
-    <div className="container mx-auto mt-8 p-8 rounded-lg shadow-lg">
+    <div className="container mx-auto p-8 rounded-lg shadow-lg">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div className="col-span-1 md:col-span-2 lg:col-span-3">
           {/* Display images */}
           <div className="mb-4 flex justify-center">
             <Image
-              src={require("../../cat.jpg")}
+              src={require("../cat.jpg")}
               alt={pet.name}
               className="w-1/3 h-1/3 rounded-lg shadow-md"
             />
@@ -82,6 +83,12 @@ const PetProfile = ({ params }: any) => {
             <p className="text-2xl text-green-500 font-semibold">
               {pet.availableStatus}
             </p>
+          </div>
+          <div className="flex justify-around">
+            <Link href={`/AdoptionApplication/${pet.petId}`} className="w-full">
+          <button className="btn btn-primary w-1/5">Adopt</button>
+          </Link>
+          <button className="btn btn-secondary w-1/5">Cancel</button>
           </div>
         </div>
       </div>

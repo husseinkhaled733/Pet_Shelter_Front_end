@@ -1,10 +1,26 @@
+"use client"
 // components/SearchBar.js
 
 import React from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
+
 
 const SearchBar = () => {
+
+  
+  function search(e:any){
+    e.preventDefault()
+    console.log(e.target.species.value)
+    console.log(e.target.breed.value)
+    console.log(e.target.age.value)
+    console.log(e.target.shelterLocation.value)
+    
+  }
   return (
-    <div className="flex flex-col md:flex-row m-auto items-center w-fit justify-center space-y-4 md:space-y-0 mb-4 border-2 border-gray-400 px-6 pb-6 rounded-lg bg-base-100">
+    <form onSubmit={search} className="flex flex-col md:flex-row m-auto items-center w-fit justify-center space-y-4 md:space-y-0 mb-4 border-2 border-gray-400 px-6 pb-6 rounded-lg bg-base-100">
+      
       {/* Species Field */}
       <div className="flex flex-col mb-4 md:mb-0 p-2">
         <label htmlFor="species" className="mb-1 text-gray-400">
@@ -62,12 +78,17 @@ const SearchBar = () => {
       </div>
 
       {/* Search Button */}
+      <Link href={{
+        pathname: '/Home/Results',
+        query: { species: 'cat', breed: 'persian', age: '2', shelterLocation: 'singapore' },
+      }}>
       <div className="flex flex-col mb-4 md:mb-0 pt-6 px-2">
-      <button className="btn btn-primary ">
+      <button type="submit" className="btn btn-primary ">
         Search
       </button>
       </div>
-    </div>
+      </Link>
+    </form>
   );
 };
 

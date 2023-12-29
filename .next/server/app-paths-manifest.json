@@ -1,3 +1,5 @@
 {
-  "/page": "app/page.js"
+  "/Home/page": "app/Home/page.js",
+  "/Home/Results/page": "app/Home/Results/page.js",
+  "/Pet/[petId]/page": "app/Pet/[petId]/page.js"
 }
