@@ -1,5 +1,5 @@
 const buildAuthToken = (user: any) => {
-  const token = btoa(`${user.name}:${user.password}`);
+  const token = btoa(`${user.email}:${user.password}`);
   return `Basic ${token}`;
 }
 

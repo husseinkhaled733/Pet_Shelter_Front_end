@@ -6,6 +6,10 @@ import { useRouter } from 'next/navigation';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import validateUser from '@/app/utils/signupValidation';
 import { MANAGER_CREATE_SHELTER_ROUTE, MANAGER_LOGIN_ROUTE } from '@/app/constants/routes';
+import { MANAGER_SIGNUP_ENDPOINT } from '@/app/constants/end-points'
+import toJSON from '@/app/utils/readableBodyToJson';
+import signupController from '@/app/controllers/signupController'
+import signupServerFormValidation from '@/app/security/signupFormValidation';
 
 const MangerSignUp = () => {
 
@@ -32,12 +36,16 @@ const MangerSignUp = () => {
 
   const router = useRouter();
 
-  const sendToServer = (user: any) => {
-    // TODO: send to server
-    // fetch('http://localhost:8080/manager/signup', {})
-    // if response is ok -> save credentilas and router.push('/manager/create-shelter')
-    // else -> show error messages
-    router.push(MANAGER_CREATE_SHELTER_ROUTE);
+  const sendToServer = async (user: any) => {
+    let response = await signupController.sendPostRequest(user, MANAGER_SIGNUP_ENDPOINT)
+    let jsonResponse = await toJSON(response.body!)
+    let responseStatus = response.status
+    let {isUserValid, errors} = signupServerFormValidation(responseStatus, jsonResponse, user)
+    setUserValid(isUserValid)
+    setErrors(errors)
+
+    (responseStatus == 200) && router.push(MANAGER_CREATE_SHELTER_ROUTE)
+    
   }
 
   const handleSubmit = () => {
