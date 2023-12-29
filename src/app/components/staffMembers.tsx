@@ -1,8 +1,7 @@
 'use client'
 import { Box } from "@mui/material";
 import StaffMemberCard from "./staffMemberCard";
-import { use, useState } from "react";
-import { Button } from "@mui/material";
+import { useState } from "react";
 
 const StaffMembers = (props: any) => {
 

@@ -45,18 +45,23 @@ const ManagerPage = () => {
 
   const mainStyle = "flex min-h-screen min-w-screen flex-col items-center bg-white"
   const buttonStyle = 'm-4 text-white hover:text-sky-300 font-bold'
+  const activeButtonStyle = 'm-4 text-sky-300 font-bold'
 
   const shelter = <ShelterProfile shelter={shelterState}/>
   const staffMembers = <StaffMembers staffList={staffList} setStaffList={setStaffList} />
   const addStaffMember = <StaffMemberForm />
   const [display, setDisplay] = useState(shelter)
+  const [currPage, setCurrPage] = useState(0)
 
   const handleClick = (page: number) => {
     if (page == 0) {
       setDisplay(shelter)
+      setCurrPage(page)
     } else if (page == 1) {
+      setCurrPage(page)
       setDisplay(staffMembers)
     } else if (page == 2) {
+      setCurrPage(page)
       setDisplay(addStaffMember)
     }
   }
@@ -66,13 +71,13 @@ const ManagerPage = () => {
       <AppBar position="static" color="primary">
         <Toolbar disableGutters>
           <PetsIcon fontSize="large" className='ml-4' />
-          <Button variant='text' className={buttonStyle} onClick={() => handleClick(0)}>
+          <Button variant='text' className={currPage === 0 ? activeButtonStyle : buttonStyle} onClick={() => handleClick(0)}>
             Shleter
           </Button>
-          <Button variant='text' className={buttonStyle} onClick={() => handleClick(1)}>
+          <Button variant='text' className={currPage === 1 ? activeButtonStyle : buttonStyle} onClick={() => handleClick(1)}>
             Staff members
           </Button>
-          <Button variant='text' className={buttonStyle} onClick={() => handleClick(2)}>
+          <Button variant='text' className={currPage === 2 ? activeButtonStyle : buttonStyle} onClick={() => handleClick(2)}>
             Add new staff member
           </Button>
         </Toolbar>

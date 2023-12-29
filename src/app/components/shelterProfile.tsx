@@ -106,7 +106,8 @@ const ShelterProfile = (props: any) => {
     return { shelterValid, errors };
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
     let shelter = {
       name: nameRef.current?.value,
       country: countryRef.current?.value,
