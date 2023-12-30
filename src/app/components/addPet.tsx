@@ -55,12 +55,13 @@ const AddPetForm = () => {
         breed: pet.breed,
         behavior: pet.behavior,
         description: pet.description,
-        gender: (pet.gender.tolower() == 'male')? true : false,
+        gender: (pet.gender == 'male')? true : false,
         birthDate: birthDate,
         docLink: pet.docLink,
-        image: image
       }
     }
+    console.log(wrapper)
+    console.log('to server')
 
     const url = BASE_BACKEND_URL + ADD_PET_ENDPOINT
     let headers = new Headers()
@@ -174,6 +175,8 @@ const AddPetForm = () => {
     setIsPetValid(isValid);
     setErrors(error);
 
+    console.log(pet)
+
     allValid(isValid) && sendToServer(pet);
   }
 
@@ -252,6 +255,16 @@ const AddPetForm = () => {
         variant='filled'
         error={!petValid.description}
         helperText={(petValid.description)? '' : errors.description}>
+      </TextField>
+      <TextField
+        className={testFieldStyle}
+        label='Document link'
+        placeholder="Pet's document link"
+        inputRef={docLinkRef}
+        required
+        variant='filled'
+        error={!petValid.docLink}
+        helperText={(petValid.docLink)? '' : errors.docLink}>
       </TextField>
       <button onClick={handleSubmit}
         className='m-4 bg-blue-600 text-white p-4 rounded-md font-mono hover:bg-blue-800'>

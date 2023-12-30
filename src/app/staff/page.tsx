@@ -30,7 +30,7 @@ const StaffPage = () => {
 
   const addPet = <AddPetForm />
   const applications = <ReviewApps />
-  const addStaffMember = <StaffMemberForm />
+  const addStaffMember = <div></div>
   const [display, setDisplay] = useState(addPet)
   const [currPage, setCurrPage] = useState(0)
 

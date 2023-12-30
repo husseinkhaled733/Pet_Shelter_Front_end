@@ -11,14 +11,14 @@ import { HOME_ROUTE } from '@/app/constants/routes';
 
 const StaffMemberForm = () => {
 
-  const router = useRouter()
+  // const router = useRouter()
 
-  useEffect(() => {
-    const auth = localStorage.getItem('Authorization')
-    if (!auth) {
-      router.push(HOME_ROUTE)
-    }
-  }, [])
+  // useEffect(() => {
+  //   const auth = localStorage.getItem('Authorization')
+  //   if (!auth) {
+  //     router.push(HOME_ROUTE)
+  //   }
+  // }, [])
 
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);

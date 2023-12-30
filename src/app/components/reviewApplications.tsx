@@ -25,6 +25,8 @@ const ReviewApps = (props: any) => {
 
   const fetchApps = async () => {
     const url = BASE_BACKEND_URL + GET_APPLICATIONS_ENDPOINT + localStorage.getItem('email');
+    console.log(url)
+    console.log('get apps')
     let headers = new Headers()
     headers.append('Content-Type', 'application/json');
     headers.append('mode', 'cors')
@@ -35,6 +37,7 @@ const ReviewApps = (props: any) => {
     })
     if (response.status === 200) {
       let data = await response.json()
+      console.log('acc')
       setAppList(data)
     }
   }

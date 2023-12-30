@@ -82,10 +82,10 @@ const ReviewAppCard = (props: any) => {
         <p className="text-lg m-4 font-bold text-black">{props.app.name}</p>
         <div className='h-6 w-px bg-white mx-0 my-4'></div>
         <p className="text-lg font-bold m-4 text-white">{props.app.status}</p>
-        <IconButton aria-label="delete" size='large' onClick={handleReject}>
+        (props.app.status == 'pending') && <IconButton aria-label="delete" size='large' onClick={handleReject}>
           <ClearIcon className='text-white' />
         </IconButton>
-        <IconButton aria-label="accept" onClick={handleApprove}>
+        (props.app.status == 'pending') && <IconButton aria-label="accept" onClick={handleApprove}>
           <DoneAllIcon className='text-white' />
         </IconButton>
     </div>
