@@ -4,9 +4,9 @@ interface Pet{
     id: number;
     name: string;
     species: string;
-    age: string;
+    age: number;
     breed: string;
-    shelterLocation: string;
+    shelterName: string;
     houseTrained: boolean;
     vaccinated: boolean;
     spayed: boolean;

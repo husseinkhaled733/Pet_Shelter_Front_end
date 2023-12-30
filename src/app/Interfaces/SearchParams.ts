@@ -2,9 +2,9 @@ interface SearchParams {
     // Define the shape of the searchParams object
     // For example:
     species: string;
-    age: string;
+    age: number;
     breed: string;
-    shelterLocation: string;
+    shelterName: string;
     houseTrained: boolean;
     notHouseTrained: boolean;
     vaccinated: boolean;

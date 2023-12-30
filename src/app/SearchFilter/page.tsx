@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import PetCard from "../Pet/petCard";
 import Headercomponent from "../Header/Headercomponent";
+import PetList from "../Pet/PetList";
 
 const SearchFilter = ({ searchParams }: any) => {
   console.log(searchParams);
@@ -134,13 +135,7 @@ const SearchFilter = ({ searchParams }: any) => {
             </span>
           </h1>
         </div>
-        {/* <ul className="flex flex-wrap justify-center gap-4">
-          {petDataList.map((petData, index) => (
-            <li key={index}>
-              <PetCard petData={petData} />
-            </li>
-          ))}
-        </ul> */}
+        <PetList searchCriteria={searchParams}></PetList>
       </div>
     </>
   );

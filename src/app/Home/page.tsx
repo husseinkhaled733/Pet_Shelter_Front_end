@@ -23,14 +23,14 @@ const HomePage = () => {
 
   const [species, setSpecies] = useState("");
   const [breed, setBreed] = useState("");
-  const [age, setAge] = useState("");
-  const [shelterLocation, setShelterLocation] = useState("");
+  const [age, setAge] = useState(0);
+  const [shelterName, setShelterName] = useState("");
 
   const searchCriteria: SearchParams = {
     species: species,
     breed: breed,
     age: age,
-    shelterLocation: shelterLocation,
+    shelterName: shelterName,
     houseTrained: true,
     notHouseTrained: true,
     vaccinated: true,
@@ -85,12 +85,12 @@ const HomePage = () => {
               Age
             </label>
             <input
-              type="text"
+              type="number"
               id="age"
               name="age"
               placeholder="Enter age"
               onChange={(e) => {
-                setAge(e.target.value);
+                setAge(Number(e.target.value));
               }}
               value={age}
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
@@ -99,18 +99,18 @@ const HomePage = () => {
 
           {/* Shelter Location Field */}
           <div className="flex flex-col mb-4 md:mb-0 p-2">
-            <label htmlFor="shelterLocation" className="mb-1 text-gray-400">
+            <label htmlFor="shelterName" className="mb-1 text-gray-400">
               Shelter Location
             </label>
             <input
               type="text"
-              id="shelterLocation"
-              name="shelterLocation"
+              id="shelterName"
+              name="shelterName"
               placeholder="Enter shelter location"
               onChange={(e) => {
-                setShelterLocation(e.target.value);
+                setShelterName(e.target.value);
               }}
-              value={shelterLocation}
+              value={shelterName}
               className="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
           </div>
@@ -123,7 +123,7 @@ const HomePage = () => {
                 species: species,
                 breed: breed,
                 age: age,
-                shelterLocation: shelterLocation,
+                shelterName: shelterName,
                 houseTrained: true,
                 notHouseTrained: true,
                 vaccinated: true,
@@ -139,7 +139,7 @@ const HomePage = () => {
             </button>
           </Link>
         </form>
-        <div className="text-center mb-8">
+        {/* <div className="text-center mb-8">
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white">
             <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
               Suggestions
@@ -152,7 +152,7 @@ const HomePage = () => {
               <PetCard petData={petData} />
             </li>
           ))}
-        </ul>
+        </ul> */}
       </main>
     </>
   );
