@@ -1,11 +1,19 @@
 'use client'
 import React from 'react';
 import { Box, TextField, Typography } from '@mui/material';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { MANAGER_CREATE_SHELTER_ENDPOINT, BASE_BACKEND_URL } from '@/app/constants/end-points';
+import { HOME_ROUTE } from '@/app/constants/routes';
 
 const CreateShelterPage = () => {
+
+  useEffect(() => {
+    const auth = localStorage.getItem('Authorization')
+    if (!auth) {
+      router.push(HOME_ROUTE)
+    }
+  }, [])
 
   const nameRef = useRef<HTMLInputElement>(null);
   const countryRef = useRef<HTMLInputElement>(null);

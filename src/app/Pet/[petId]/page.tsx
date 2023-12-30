@@ -22,7 +22,7 @@ const PetProfile = ({ params }: any) => {
   const pet = petDataList[params.petId - 1];
 
   return (
-    <div className="container mx-auto p-8 rounded-lg shadow-lg">
+    <div className="container mx-auto p-8 rounded-lg shadow-lg bg-white min-h-screen">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div className="col-span-1 md:col-span-2 lg:col-span-3">
           {/* Display images */}

@@ -5,9 +5,21 @@ import IconButton from '@mui/material/IconButton'
 import { BASE_BACKEND_URL, DELETE_STAFF_ENDPOINT } from '../constants/end-points';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
+import { HOME_ROUTE } from '../constants/routes';
+import { useEffect } from 'react';
 
 
 const StaffMemberCard = (props: any) => {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const auth = localStorage.getItem('Authorization')
+    if (!auth) {
+      router.push(HOME_ROUTE)
+    }
+  }, [])
 
   const deleteStaffMember = async (email: string) => {
     const url = BASE_BACKEND_URL + DELETE_STAFF_ENDPOINT + email
@@ -42,7 +54,7 @@ const StaffMemberCard = (props: any) => {
     <div className="flex flex-row items-center bg-blue-500 m-4 rounded-md w-full p-10 justify-evenly">
         <p className="text-lg font-bold m-4 text-white">{props.staff.name}</p>
         <div className='h-6 w-px bg-white mx-0 my-4'></div>
-        <p className="text-lg m-4 font-bold">{props.staff.email}</p>
+        <p className="text-lg m-4 font-bold text-black">{props.staff.email}</p>
         <div className='h-6 w-px bg-white mx-0 my-4'></div>
         <p className="text-lg font-bold m-4 text-white">{props.staff.phone}</p>
         <IconButton aria-label="delete" onClick={handleDelete} size='large'>

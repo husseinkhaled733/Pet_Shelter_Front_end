@@ -2,14 +2,15 @@
 import { Box } from "@mui/material";
 import StaffMemberCard from "./staffMemberCard";
 import { useEffect, useState } from "react";
-import { BASE_BACKEND_URL, GET_STAFF_ENDPOINT } from "../constants/end-points";
+import { BASE_BACKEND_URL, GET_APPLICATIONS_ENDPOINT, GET_STAFF_ENDPOINT } from "../constants/end-points";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from "next/navigation";
 import { HOME_ROUTE } from "../constants/routes";
+import ReviewAppCard from "./reviewApp";
 
 
-const StaffMembers = (props: any) => {
+const ReviewApps = (props: any) => {
 
   const router = useRouter()
 
@@ -20,10 +21,12 @@ const StaffMembers = (props: any) => {
     }
   }, [])
 
-  const [staffList, setStaffList] = useState([]);
+  const [appList, setAppList] = useState([]);
 
-  const fetchStaffMembers = async () => {
-    const url = BASE_BACKEND_URL + GET_STAFF_ENDPOINT + localStorage.getItem('email');
+  const fetchApps = async () => {
+    const url = BASE_BACKEND_URL + GET_APPLICATIONS_ENDPOINT + localStorage.getItem('email');
+    console.log(url)
+    console.log('get apps')
     let headers = new Headers()
     headers.append('Content-Type', 'application/json');
     headers.append('mode', 'cors')
@@ -34,22 +37,23 @@ const StaffMembers = (props: any) => {
     })
     if (response.status === 200) {
       let data = await response.json()
-      setStaffList(data)
+      console.log('acc')
+      setAppList(data)
     }
   }
 
   useEffect(() => {
-    fetchStaffMembers()
+    fetchApps()
   }, [])
   
   return (
     <Box>
-      {staffList.map((staff: any) => 
-        <StaffMemberCard key={staff.email} staff={staff} staffList={staffList} setStaffList={setStaffList} />
+      {appList.map((app: any) => 
+        <ReviewAppCard app={app} />
       )}
       <ToastContainer />
     </Box>
   )
 }
 
-export default StaffMembers;
+export default ReviewApps;

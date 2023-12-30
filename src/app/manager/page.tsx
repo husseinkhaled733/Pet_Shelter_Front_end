@@ -5,50 +5,31 @@ import Button from '@mui/material/Button'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import PetsIcon from '@mui/icons-material/Pets'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ShelterProfile from '@/app/components/shelterProfile'
 import StaffMembers from '../components/staffMembers'
 import StaffMemberForm from '../components/addStaffMember'
+import { useRouter } from 'next/navigation'
+import { HOME_ROUTE } from '../constants/routes'
 
 
 const ManagerPage = () => {
 
-  const originalShelter = {
-    name: 'Pety House',
-    country: 'Vietnam',
-    city: 'Ho Chi Minh',
-    email: 'pety@gmail.com',
-    address: '123 Nguyen Van Linh',
-    phone: '0123456789'
-  }
+  const router = useRouter()
 
-  const [shelterState, setShelterState] = useState(originalShelter)
-  const [staffList, setStaffList] = useState([
-    {
-      name: 'John Doe',
-      email: 'john1@gmail.com',
-      phone: '054-1234567'
-    },
-    {
-      name: 'John Doe',
-      email: 'john2@gmail.com',
-      phone: '054-1234567'
-    },
-    {
-      name: 'John Doe',
-      email: 'john3@gmail.com',
-      phone: '054-1234567'
+  useEffect(() => {
+    const auth = localStorage.getItem('Authorization')
+    if (!auth) {
+      router.push(HOME_ROUTE)
     }
-  ])
-
-
+  }, [])
 
   const mainStyle = "flex min-h-screen min-w-screen flex-col items-center bg-white"
   const buttonStyle = 'm-4 text-white hover:text-sky-300 font-bold'
   const activeButtonStyle = 'm-4 text-sky-300 font-bold'
 
-  const shelter = <ShelterProfile shelter={shelterState}/>
-  const staffMembers = <StaffMembers staffList={staffList} setStaffList={setStaffList} />
+  const shelter = <ShelterProfile />
+  const staffMembers = <StaffMembers />
   const addStaffMember = <StaffMemberForm />
   const [display, setDisplay] = useState(shelter)
   const [currPage, setCurrPage] = useState(0)
