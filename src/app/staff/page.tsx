@@ -11,6 +11,7 @@ import StaffMembers from '../components/staffMembers'
 import StaffMemberForm from '../components/addStaffMember'
 import { useRouter } from 'next/navigation'
 import { HOME_ROUTE } from '../constants/routes'
+import AddPetForm from '../components/addPet'
 
 const StaffPage = () => {
   const mainStyle = "flex min-h-screen min-w-screen flex-col items-center bg-white"
@@ -26,15 +27,15 @@ const StaffPage = () => {
     }
   }, [])
 
-  const shelter = <ShelterProfile />
+  const addPet = <AddPetForm />
   const staffMembers = <StaffMembers />
   const addStaffMember = <StaffMemberForm />
-  const [display, setDisplay] = useState(shelter)
+  const [display, setDisplay] = useState(addPet)
   const [currPage, setCurrPage] = useState(0)
 
   const handleClick = (page: number) => {
     if (page == 0) {
-      setDisplay(shelter)
+      setDisplay(addPet)
       setCurrPage(page)
     } else if (page == 1) {
       setCurrPage(page)
@@ -51,7 +52,7 @@ const StaffPage = () => {
         <Toolbar disableGutters>
           <PetsIcon fontSize="large" className='ml-4' />
           <Button variant='text' className={currPage === 0 ? activeButtonStyle : buttonStyle} onClick={() => handleClick(0)}>
-            Shleter
+            Add pet
           </Button>
           <Button variant='text' className={currPage === 1 ? activeButtonStyle : buttonStyle} onClick={() => handleClick(1)}>
             Staff members
