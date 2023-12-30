@@ -5,9 +5,20 @@ import { useEffect, useState } from "react";
 import { BASE_BACKEND_URL, GET_STAFF_ENDPOINT } from "../constants/end-points";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from "next/navigation";
+import { HOME_ROUTE } from "../constants/routes";
 
 
 const StaffMembers = (props: any) => {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const auth = localStorage.getItem('Authorization')
+    if (!auth) {
+      router.push(HOME_ROUTE)
+    }
+  }, [])
 
   const [staffList, setStaffList] = useState([]);
 

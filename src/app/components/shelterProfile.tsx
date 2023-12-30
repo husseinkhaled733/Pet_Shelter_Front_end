@@ -4,9 +4,20 @@ import { useState, useRef, useEffect } from 'react';
 import { BASE_BACKEND_URL, GET_SHELTERS_ENDPOINT, UPDATE_SHELTER_ENDPOINT } from '../constants/end-points';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
+import { HOME_ROUTE } from '../constants/routes';
 
 
 const ShelterProfile = (props: any) => {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const auth = localStorage.getItem('Authorization')
+    if (!auth) {
+      router.push(HOME_ROUTE)
+    }
+  }, [])
 
 
   const nameRef = useRef<HTMLInputElement>(null);

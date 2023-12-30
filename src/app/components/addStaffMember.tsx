@@ -5,8 +5,21 @@ import { useState, useRef } from 'react';
 import { BASE_BACKEND_URL, ADD_STAFF_ENDPOINT } from '@/app/constants/end-points';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { HOME_ROUTE } from '@/app/constants/routes';
 
 const StaffMemberForm = () => {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const auth = localStorage.getItem('Authorization')
+    if (!auth) {
+      router.push(HOME_ROUTE)
+    }
+  }, [])
+
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);

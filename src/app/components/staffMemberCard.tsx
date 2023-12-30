@@ -5,9 +5,21 @@ import IconButton from '@mui/material/IconButton'
 import { BASE_BACKEND_URL, DELETE_STAFF_ENDPOINT } from '../constants/end-points';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
+import { HOME_ROUTE } from '../constants/routes';
+import { useEffect } from 'react';
 
 
 const StaffMemberCard = (props: any) => {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const auth = localStorage.getItem('Authorization')
+    if (!auth) {
+      router.push(HOME_ROUTE)
+    }
+  }, [])
 
   const deleteStaffMember = async (email: string) => {
     const url = BASE_BACKEND_URL + DELETE_STAFF_ENDPOINT + email
