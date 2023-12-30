@@ -5,6 +5,10 @@ import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ADOPTER_DASHBOARD_ROUTE, STAFF_DASHBOARD_ROUTE } from '@/app/constants/routes';
+import loginController from '@/app/controllers/loginController';
+import { LOGIN_ENDPOINT } from '@/app/constants/end-points';
+import toJSON from '@/app/utils/readableBodyToJson';
+import buildAuthToken from '@/app/utils/securityUtil';
 
 const AdopterSignin = () => {
 
@@ -25,12 +29,33 @@ const AdopterSignin = () => {
 
   const router = useRouter();
 
-  const sendToServer = (user: any) => {
-    // TODO: send to server
-    // fetch('http://localhost:8080/manager/signup', {})
-    // if response is ok -> save credentilas and router.push('/manager/create-shelter')
-    // else -> show error messages
-    router.push(ADOPTER_DASHBOARD_ROUTE);
+  const handleAuth = (userDTO: any) => {
+    const authToken = buildAuthToken(userDTO);
+    localStorage.setItem("Authorization", authToken);
+    localStorage.setItem('email', userDTO.email)
+  }
+
+  const sendToServer = async (user: any) => {
+    let response = await loginController.sendPostRequest(user, LOGIN_ENDPOINT)
+    let jsonResponse = await toJSON(response.body!)
+    let responseStatus = response.status
+
+    console.log(jsonResponse)
+    console.log(responseStatus)
+
+    if (responseStatus === 200) {
+      handleAuth(user)
+      router.push(ADOPTER_DASHBOARD_ROUTE)
+    } else {
+      setUserValid({
+        email: false,
+        password: false,
+      })
+      setErrors({
+        email: jsonResponse.email,
+        password: jsonResponse.password,
+      })
+    }
   }
 
   const validateSignin = (user: any) => {
