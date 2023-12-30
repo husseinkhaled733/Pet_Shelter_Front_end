@@ -88,7 +88,8 @@ const AdopterSignin = () => {
     return {userValid, errors};
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
     let user = {
       email: emailRef.current?.value,
       password: passwordRef.current?.value,
