@@ -1,7 +1,7 @@
 'use client'
 export const MANAGER_SIGNUP_ENDPOINT = "/register/addManager"
 export const STAFF_SIGNIN_ENDPOINT = '/register/staff'
-export const ADOPTER_SIGNUP_ENDPOINT = '/register/adopter'
+export const ADOPTER_SIGNUP_ENDPOINT = "/register/addAdopter"
 
 export const MANAGER_CREATE_SHELTER_ENDPOINT = "/manager/addShelter"
 

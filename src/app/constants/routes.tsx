@@ -9,4 +9,4 @@ export const STAFF_DASHBOARD_ROUTE = '/staff'
 
 export const ADOPTER_SIGNUP_ROUTE = '/adopter/signup'
 export const ADOPTER_LOGIN_ROUTE = '/adopter/signin'
-export const ADOPTER_DASHBOARD_ROUTE = '/adopter'
+export const ADOPTER_DASHBOARD_ROUTE = '/Home'

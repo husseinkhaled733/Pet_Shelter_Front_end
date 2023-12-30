@@ -6,6 +6,10 @@ import { useRouter } from 'next/navigation';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import validateUser from '@/app/utils/signupValidation';
 import { ADOPTER_DASHBOARD_ROUTE, ADOPTER_LOGIN_ROUTE } from '@/app/constants/routes';
+import { ADOPTER_SIGNUP_ENDPOINT } from '@/app/constants/end-points';
+import toJSON from '@/app/utils/readableBodyToJson';
+import signupController from '@/app/controllers/signupController';
+import signupServerFormValidation from '@/app/security/signupFormValidation';
 
 const AdopterSignUp = () => {
 
@@ -32,15 +36,25 @@ const AdopterSignUp = () => {
 
   const router = useRouter();
 
-  const sendToServer = (user: any) => {
-    // TODO: send to server
-    // fetch('http://localhost:8080/manager/signup', {})
-    // if response is ok -> save credentilas and router.push('/manager/create-shelter')
-    // else -> show error messages
-    router.push(ADOPTER_DASHBOARD_ROUTE);
+  const sendToServer = async (user: any) => {
+    const userDTO = {
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      phone: user.phone
+    }
+    let response = await signupController.sendPostRequest(userDTO, ADOPTER_SIGNUP_ENDPOINT)
+    let jsonResponse = await toJSON(response.body!)
+    let responseStatus = response.status
+    let {isUserValid, errors} = signupServerFormValidation(responseStatus, jsonResponse, user)
+    setUserValid(isUserValid)
+    setErrors(errors);
+
+    (responseStatus == 200) && router.push(ADOPTER_DASHBOARD_ROUTE)
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
     let user = {
       name: nameRef.current?.value,
       email: emailRef.current?.value,
