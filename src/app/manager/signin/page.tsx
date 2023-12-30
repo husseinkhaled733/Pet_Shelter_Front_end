@@ -40,7 +40,10 @@ const MangerSignin = () => {
     let jsonResponse = await toJSON(response.body!)
     let responseStatus = response.status
 
-    if (responseStatus == 200) {
+    console.log(jsonResponse)
+    console.log(responseStatus)
+
+    if (responseStatus === 200) {
       handleAuth(user)
       router.push(MANAGER_DASHBOARD_ROUTE)
     } else {
@@ -53,11 +56,6 @@ const MangerSignin = () => {
         password: jsonResponse.password,
       })
     }
-    // TODO: send to server
-    // fetch('http://localhost:8080/manager/signup', {})
-    // if response is ok -> save credentilas and router.push('/manager/create-shelter')
-    // else -> show error messages
-    router.push(MANAGER_DASHBOARD_ROUTE);
   }
 
   const validateSignin = (user: any) => {
@@ -90,7 +88,8 @@ const MangerSignin = () => {
     return {userValid, errors};
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
     let user = {
       email: emailRef.current?.value,
       password: passwordRef.current?.value,

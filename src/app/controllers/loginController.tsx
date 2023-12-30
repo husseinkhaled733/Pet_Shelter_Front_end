@@ -7,9 +7,9 @@ class LoginController {
     let headers = new Headers()
     headers.append('Content-Type', 'application/json');
     headers.append('mode', 'cors')
-    headers.append('Authorization', buildAuthToken(payload))
+    headers.append('Authorization', buildAuthToken(payload)!)
     return fetch(url, {
-      method: 'POST',
+      method: 'GET',
       headers: headers
     })
   }

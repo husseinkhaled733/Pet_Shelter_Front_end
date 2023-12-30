@@ -6,6 +6,7 @@ class SignupController {
     let headers = new Headers()
     headers.append('Content-Type', 'application/json');
     headers.append('mode', 'cors')
+    console.log(payload)
     console.log('sending post request to: ' + url)
     return fetch(url, {
       method: 'POST',

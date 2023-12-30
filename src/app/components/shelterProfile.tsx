@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Box, TextField, Typography } from '@mui/material';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { BASE_BACKEND_URL, GET_SHELTERS_ENDPOINT, UPDATE_SHELTER_ENDPOINT } from '../constants/end-points';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const ShelterProfile = (props: any) => {
 
@@ -12,14 +16,49 @@ const ShelterProfile = (props: any) => {
   const addressRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
 
+  const [name, setName] = useState('');
+  const [country, setCountry] = useState('');
+  const [city, setCity] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
+
   const [currShelter, setShelter] = useState({
-    name: props.shelter.name,
-    country: props.shelter.country,
-    city: props.shelter.city,
-    email: props.shelter.email,
-    address: props.shelter.address,
-    phone: props.shelter.phone
+    name: '',
+    country: '',
+    city: '',
+    email: '',
+    address: '',
+    phone: ''
   });
+
+  const fetchShelterData = async () => {
+    const url = BASE_BACKEND_URL + GET_SHELTERS_ENDPOINT + localStorage.getItem('email');
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json');
+    headers.append('mode', 'cors')
+    headers.append('Authorization', localStorage.getItem('Authorization')!)
+    let response = await fetch(url, {
+      method: 'GET',
+      headers: headers
+    })
+
+    if (response.status === 200) {
+      let data = await response.json()
+      console.log(data);
+      setName(data.name);
+      setCountry(data.country);
+      setCity(data.city);
+      setEmail(data.email);
+      setAddress(data.detailedAddress);
+      setPhone(data.phone);
+      setShelter(data)
+    }
+  }
+
+  useEffect(() => {
+    fetchShelterData()
+  }, []);
 
   const [shelterValid, setIsShelterValid] = useState({
     name: true,
@@ -42,10 +81,48 @@ const ShelterProfile = (props: any) => {
     return shelterValid.name && shelterValid.email && shelterValid.phone && shelterValid.country && shelterValid.city && shelterValid.address;
   }
 
-  const sendToServer = (shelter: any) => {
-    // TODO: send to server
-    console.log(shelter);
-    console.log('send to server');
+  const sendToServer = async (shelter: any) => {
+    const wrapper = {
+      managerEmail: localStorage.getItem('email'),
+      shelter: {
+        name: shelter.name,
+        email: shelter.email,
+        phone: shelter.phone,
+        country: shelter.country,
+        city: shelter.city,
+        detailedAddress: shelter.address
+      }
+    }
+    const url = BASE_BACKEND_URL + UPDATE_SHELTER_ENDPOINT;
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json');
+    headers.append('mode', 'cors')
+    headers.append('Authorization', localStorage.getItem('Authorization')!)
+    console.log('sending post request to: ' + url)
+    let respnse = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(wrapper),
+      headers: headers
+    });
+
+    if (respnse.status == 200) {
+      toast.success("Shelter updated successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000
+      });
+      setShelter(shelter);
+    } else {
+      toast.error("Something went wrong!", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000
+      });
+      setName(currShelter.name);
+      setCountry(currShelter.country);
+      setCity(currShelter.city);
+      setEmail(currShelter.email);
+      setAddress(currShelter.address);
+      setPhone(currShelter.phone);
+    }
   }
 
   const validateShelter = (shelter: any) => {
@@ -130,7 +207,7 @@ const ShelterProfile = (props: any) => {
 
   }
 
-  const testFieldStyle = "w-2/3 m-4"
+  const testFieldStyle = "w-2/3 m-4 p-px"
 
   return (
       <Box component="form" className="bg-inherit mt-4 min-h-56 min-w-52 h-4/5 w-4/5 flex flex-col justify-center items-center">
@@ -141,7 +218,8 @@ const ShelterProfile = (props: any) => {
           placeholder="Enter shelter's name"
           inputRef={nameRef}
           required
-          value={currShelter.name}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           variant='filled'
           error={!shelterValid.name}
           helperText={(shelterValid.name)? '' : errors.name}>
@@ -151,7 +229,8 @@ const ShelterProfile = (props: any) => {
           label='Email'
           placeholder="Enter shelter's email"
           inputRef={emailRef}
-          value={currShelter.email}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
           variant='filled'
           error={!shelterValid.email}
@@ -163,7 +242,8 @@ const ShelterProfile = (props: any) => {
           placeholder="Enter shelter's phone number"
           inputRef={phoneRef}
           required
-          value={currShelter.phone}
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
           variant='filled'
           error={!shelterValid.phone}
           helperText={(shelterValid.phone)? '' : errors.phone}>
@@ -174,7 +254,8 @@ const ShelterProfile = (props: any) => {
           placeholder="Enter shelter's country"
           inputRef={countryRef}
           required
-          value={currShelter.country}
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
           variant='filled'
           error={!shelterValid.country}
           helperText={(shelterValid.country)? '' : errors.country}>
@@ -185,7 +266,8 @@ const ShelterProfile = (props: any) => {
           placeholder="Enter shelter's city"
           inputRef={cityRef}
           required
-          value={currShelter.city}
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
           variant='filled'
           error={!shelterValid.city}
           helperText={(shelterValid.city)? '' : errors.city}>
@@ -196,7 +278,8 @@ const ShelterProfile = (props: any) => {
           placeholder="Enter shelter's detailed address"
           inputRef={addressRef}
           required
-          value={currShelter.address}
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
           variant='filled'
           error={!shelterValid.address}
           helperText={(shelterValid.address)? '' : errors.address}>
@@ -205,6 +288,7 @@ const ShelterProfile = (props: any) => {
         className='m-4 bg-blue-600 text-white p-4 rounded-md font-mono hover:bg-blue-800'>
           Save updates
         </button>
+        <ToastContainer />
       </Box>
   )
 }

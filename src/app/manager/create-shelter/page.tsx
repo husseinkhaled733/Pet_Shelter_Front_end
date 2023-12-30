@@ -3,6 +3,7 @@ import React from 'react';
 import { Box, TextField, Typography } from '@mui/material';
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { MANAGER_CREATE_SHELTER_ENDPOINT, BASE_BACKEND_URL } from '@/app/constants/end-points';
 
 const CreateShelterPage = () => {
 
@@ -34,9 +35,33 @@ const CreateShelterPage = () => {
     return shelterValid.name && shelterValid.email && shelterValid.phone && shelterValid.country && shelterValid.city && shelterValid.address;
   }
 
-  const sendToServer = (shelter: any) => {
-    // TODO: send to server
-    router.push('/manager');
+  const sendToServer =  async (shelter: any) => {
+    const wrapper = {
+      managerEmail: localStorage.getItem('email'),
+      shelter: {
+        name: shelter.name,
+        email: shelter.email,
+        phone: shelter.phone,
+        country: shelter.country,
+        city: shelter.city,
+        detailedAddress: shelter.address
+      }
+    }
+    const url = BASE_BACKEND_URL + MANAGER_CREATE_SHELTER_ENDPOINT;
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json');
+    headers.append('mode', 'cors')
+    headers.append('Authorization', localStorage.getItem('Authorization')!)
+    console.log('sending post request to: ' + url)
+    let respnse = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(wrapper),
+      headers: headers
+    });
+
+    if (respnse.status == 200) {
+      router.push('/manager');
+    }
   }
 
   const validateShelter = (shelter: any) => {
@@ -97,7 +122,8 @@ const CreateShelterPage = () => {
     return { shelterValid, errors };
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
     let shelter = {
       name: nameRef.current?.value,
       country: countryRef.current?.value,

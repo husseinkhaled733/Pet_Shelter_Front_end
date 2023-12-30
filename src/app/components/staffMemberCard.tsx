@@ -2,14 +2,40 @@
 import React from 'react';
 import PersonRemoveOutlinedIcon from '@mui/icons-material/PersonRemoveOutlined';
 import IconButton from '@mui/material/IconButton'
+import { BASE_BACKEND_URL, DELETE_STAFF_ENDPOINT } from '../constants/end-points';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const StaffMemberCard = (props: any) => {
+
+  const deleteStaffMember = async (email: string) => {
+    const url = BASE_BACKEND_URL + DELETE_STAFF_ENDPOINT + email
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json');
+    headers.append('mode', 'cors')
+    headers.append('Authorization', localStorage.getItem('Authorization')!)
+    let response = await fetch(url, {
+      method: 'GET',
+      headers: headers
+    })
+
+    if (response.status === 200) {
+      toast.success("Staff member deleted successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000
+      });
+    } else {
+      toast.error("Failed to delete staff member!", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000
+      });
+    }
+  }
   
   const handleDelete = (e: any) => {
     e.preventDefault();
-    console.log('delete');
-    console.log(props.staffList);
-    console.log(props.staff);
+    deleteStaffMember(props.staff.email)
   }
 
   return (

@@ -2,6 +2,9 @@
 import React from 'react';
 import { Box, TextField, Typography } from '@mui/material';
 import { useState, useRef } from 'react';
+import { BASE_BACKEND_URL, ADD_STAFF_ENDPOINT } from '@/app/constants/end-points';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StaffMemberForm = () => {
   const nameRef = useRef<HTMLInputElement>(null);
@@ -24,16 +27,49 @@ const StaffMemberForm = () => {
     return userValid.name && userValid.email && userValid.phone;
   }
 
-  const sendToServer = (staff: any) => {
-    // TODO: send to server
-    staff.password = ('@' + staff.name + '123').toLowerCase().replaceAll(' ', '');
-    staff.role = 'staff'
-
-    console.log(staff);
-    console.log('send to server');
+  const notify = () => {
+    toast.success("Staff member added successfully!", {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 1000
+    });
   }
 
-  const validateShelter = (staff: any) => {
+  const sendToServer = async (staff: any) => {
+    staff.password = ('@' + staff.name + '123').toLowerCase().replaceAll(' ', '');
+    console.log("to server")
+    const wrapper = {
+      managerEmail: localStorage.getItem('email'),
+      staff: {
+        name: staff.name,
+        email: staff.email,
+        phone: staff.phone,
+        password: staff.password,
+        role: 'staff'
+      }
+    }
+
+    const url = BASE_BACKEND_URL + ADD_STAFF_ENDPOINT;
+    let headers = new Headers()
+    headers.append('Content-Type', 'application/json');
+    headers.append('mode', 'cors')
+    headers.append('Authorization', localStorage.getItem('Authorization')!)
+    let response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(wrapper),
+      headers: headers
+    })
+
+    if (response.status === 200) {
+      notify()
+    } else {
+      toast.error("Something went wrong!", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000
+      });
+    }
+  }
+
+  const validateStaff = (staff: any) => {
 
     let staffValid = {
       name: true,
@@ -73,13 +109,15 @@ const StaffMemberForm = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+
+    console.log('handle submit')
     let staff = {
       name: nameRef.current?.value,
       email: emailRef.current?.value,
       phone: phoneRef.current?.value,
     }
 
-    let {staffValid, errors} = validateShelter(staff);
+    let {staffValid, errors} = validateStaff(staff);
     setUserValid(staffValid);
     setErrors(errors);
 
@@ -126,6 +164,7 @@ const StaffMemberForm = () => {
         className='m-4 bg-blue-600 text-white p-4 rounded-md font-mono hover:bg-blue-800'>
           Hire
         </button>
+        <ToastContainer />
       </Box>
   )
 }

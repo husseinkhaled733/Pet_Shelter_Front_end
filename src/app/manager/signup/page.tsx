@@ -38,7 +38,14 @@ const MangerSignUp = () => {
 
   const sendToServer = async (user: any) => {
     console.log('send to server')
-    let response = await signupController.sendPostRequest(user, MANAGER_SIGNUP_ENDPOINT)
+    const userDTO = {
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      phone: user.phone,
+      role: 'manager'
+    }
+    let response = await signupController.sendPostRequest(userDTO, MANAGER_SIGNUP_ENDPOINT)
     let jsonResponse = await toJSON(response.body!)
     let responseStatus = response.status
     let {isUserValid, errors} = signupServerFormValidation(responseStatus, jsonResponse, user)
@@ -49,7 +56,8 @@ const MangerSignUp = () => {
     
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
     let user = {
       name: nameRef.current?.value,
       email: emailRef.current?.value,
