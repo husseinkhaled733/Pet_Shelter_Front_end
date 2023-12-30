@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 
 const ApplicationCard = ({application , index}:{application:any,index:any}) => {

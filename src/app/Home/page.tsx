@@ -41,8 +41,8 @@ const HomePage = () => {
   return (
     <>
       <Headercomponent></Headercomponent>
-      <main className="container mx-auto p-4">
-        <form className="flex flex-col md:flex-row m-auto items-center w-fit justify-center space-y-4 md:space-y-0 mb-4 border-2 border-gray-400 px-6 pb-6 rounded-lg bg-base-100">
+      <div className="container mx-auto p-4">
+        <form className="flex flex-col md:flex-row m-auto items-center w-fit justify-center space-y-4 md:space-y-0 mb-4 border-2 border-gray-400 px-6 pb-6 rounded-lg">
           {/* Species Field */}
           <div className="flex flex-col mb-4 md:mb-0 p-2">
             <label htmlFor="species" className="mb-1 text-gray-400">
@@ -153,7 +153,7 @@ const HomePage = () => {
             </li>
           ))}
         </ul> */}
-      </main>
+      </div>
     </>
   );
 };

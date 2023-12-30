@@ -5,7 +5,7 @@ import React from "react";
 
 const PetCard = ({ petData }: { petData: any }) => {
   const {
-    petId,
+    petID,
     name,
     gender,
     healthStatus,
@@ -30,7 +30,7 @@ const PetCard = ({ petData }: { petData: any }) => {
             href={{
               pathname: "/Pet",
               query: {
-                petId: petId,
+                petId: petID,
                 name: name,
                 gender:gender,
                 healthStatus:healthStatus,

@@ -18,18 +18,19 @@ async function submitApplication(petID:any) {
   headers.append('mode', 'cors')
   headers.append('Authorization', localStorage.getItem('Authorization')!)
   const dto={
-    AdopterEmail:adopterEmail,
-    petId:petID
+    petId:petID,
+    adopterEmail:adopterEmail,
   }
+  console.log(dto);
+  
   const res=await fetch(`http://localhost:8080/adopter/application`,{
       method:'POST',
       headers:headers,
       cache:'no-store',
       body:JSON.stringify(dto)
   })
-  const data=await res.json()
-  console.log(data)
-  return data
+  console.log(res)
+  return res
 }
 
 const PetProfile = ({ searchParams }: any) => {

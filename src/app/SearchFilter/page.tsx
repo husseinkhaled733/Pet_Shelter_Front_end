@@ -8,6 +8,9 @@ const SearchFilter = ({ searchParams }: any) => {
   console.log(searchParams);
   console.log(searchParams.vaccinated);
 
+  console.log("in search filter");
+  
+
   const [houseTrained, sethouseTrained] = useState(
     Boolean(searchParams.houseTrained)
   );
