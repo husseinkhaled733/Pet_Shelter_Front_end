@@ -47,16 +47,19 @@ const AddPetForm = () => {
 
   const sendToServer = async (pet: any) => {
     const wrapper = {
-      name: pet.name,
-      healthStatus: pet.healthStatus,
-      species: pet.species,
-      breed: pet.breed,
-      behavior: pet.behavior,
-      description: pet.description,
-      gender: (pet.gender.tolower() == 'male')? true : false,
-      birthDate: birthDate,
-      docLink: pet.docLink,
-      image: image
+      staffEmail: localStorage.getItem('email'),
+      pet: {
+        name: pet.name,
+        healthStatus: pet.healthStatus,
+        species: pet.species,
+        breed: pet.breed,
+        behavior: pet.behavior,
+        description: pet.description,
+        gender: (pet.gender.tolower() == 'male')? true : false,
+        birthDate: birthDate,
+        docLink: pet.docLink,
+        image: image
+      }
     }
 
     const url = BASE_BACKEND_URL + ADD_PET_ENDPOINT

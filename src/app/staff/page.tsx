@@ -12,6 +12,7 @@ import StaffMemberForm from '../components/addStaffMember'
 import { useRouter } from 'next/navigation'
 import { HOME_ROUTE } from '../constants/routes'
 import AddPetForm from '../components/addPet'
+import ReviewApps from '../components/reviewApplications'
 
 const StaffPage = () => {
   const mainStyle = "flex min-h-screen min-w-screen flex-col items-center bg-white"
@@ -28,7 +29,7 @@ const StaffPage = () => {
   }, [])
 
   const addPet = <AddPetForm />
-  const staffMembers = <StaffMembers />
+  const applications = <ReviewApps />
   const addStaffMember = <StaffMemberForm />
   const [display, setDisplay] = useState(addPet)
   const [currPage, setCurrPage] = useState(0)
@@ -39,7 +40,7 @@ const StaffPage = () => {
       setCurrPage(page)
     } else if (page == 1) {
       setCurrPage(page)
-      setDisplay(staffMembers)
+      setDisplay(applications)
     } else if (page == 2) {
       setCurrPage(page)
       setDisplay(addStaffMember)
@@ -55,10 +56,10 @@ const StaffPage = () => {
             Add pet
           </Button>
           <Button variant='text' className={currPage === 1 ? activeButtonStyle : buttonStyle} onClick={() => handleClick(1)}>
-            Staff members
+            Review applications
           </Button>
           <Button variant='text' className={currPage === 2 ? activeButtonStyle : buttonStyle} onClick={() => handleClick(2)}>
-            Add new staff member
+            Pet profiles
           </Button>
         </Toolbar>
       </AppBar>

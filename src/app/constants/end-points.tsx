@@ -15,5 +15,7 @@ export const DELETE_STAFF_ENDPOINT = "/manager/deleteStaff/"
 export const GET_SHELTERS_ENDPOINT = "/manager/getShelter/"
 export const UPDATE_SHELTER_ENDPOINT = "/manager/updateShelter"
 export const ADD_PET_ENDPOINT = "/manager/addPet"
+export const GET_APPLICATIONS_ENDPOINT = "/manager/getApplications/"
+export const TAKE_ACTION_ENDPOINT = "/manager/takeAction"
 
 
