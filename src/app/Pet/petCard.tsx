@@ -19,7 +19,7 @@ const PetCard = ({ petData }: { petData: any }) => {
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <figure className="px-10 pt-10">
-        <Image src={require("./cat.jpg")} alt="Cat" className="rounded-xl" />
+        <Image src={require("./dog.avif")} alt="Cat" className="rounded-xl" />
       </figure>
       <div className="card-body items-center text-center">
         <h2 className="card-title">{name}</h2>

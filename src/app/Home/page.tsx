@@ -41,7 +41,7 @@ const HomePage = () => {
   return (
     <>
       <Headercomponent></Headercomponent>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto min-h-screen min-w-screen bg-inherit p-4">
         <form className="flex flex-col md:flex-row m-auto items-center w-fit justify-center space-y-4 md:space-y-0 mb-4 border-2 border-gray-400 px-6 pb-6 rounded-lg">
           {/* Species Field */}
           <div className="flex flex-col mb-4 md:mb-0 p-2">
@@ -97,16 +97,16 @@ const HomePage = () => {
             />
           </div>
 
-          {/* Shelter Location Field */}
+          {/* Shelter Name Field */}
           <div className="flex flex-col mb-4 md:mb-0 p-2">
             <label htmlFor="shelterName" className="mb-1 text-gray-400">
-              Shelter Location
+              Shelter Name
             </label>
             <input
               type="text"
               id="shelterName"
               name="shelterName"
-              placeholder="Enter shelter location"
+              placeholder="Enter shelter Name"
               onChange={(e) => {
                 setShelterName(e.target.value);
               }}

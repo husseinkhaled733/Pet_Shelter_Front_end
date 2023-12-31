@@ -10,6 +10,8 @@ import {
   dummyPetData3,
 } from "../Home/dummyPetData";
 import Headercomponent from "@/app/Header/Headercomponent";
+import { Alert } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 async function submitApplication(petID:any) {
   const adopterEmail = localStorage.getItem('email')
@@ -35,14 +37,10 @@ async function submitApplication(petID:any) {
 
 const PetProfile = ({ searchParams }: any) => {
   console.log(searchParams);
-  const petDataList = [
-    dummyPetData,
-    dummyPetData1,
-    dummyPetData2,
-    dummyPetData3,
-  ];
 
   const pet = searchParams;
+
+  const router=useRouter()
 
   async function handleAdopt(petID:any){
     console.log(petID);
@@ -50,7 +48,8 @@ const PetProfile = ({ searchParams }: any) => {
     const response=await submitApplication(petID)
     console.log(response)
     console.log("handling Adopt");
-    
+    window.alert("Adoption Application submitted sucessfully")
+    router.push('/Home');
   } 
 
   return (
@@ -62,7 +61,7 @@ const PetProfile = ({ searchParams }: any) => {
             {/* Display images */}
             <div className="mb-4 flex justify-center">
               <Image
-                src={require("./cat.jpg")}
+                src={require("./dog.avif")}
                 alt={pet.name}
                 className="w-1/3 h-1/3 rounded-lg shadow-md"
               />
@@ -82,7 +81,8 @@ const PetProfile = ({ searchParams }: any) => {
                 <p className="text-neutral-950 text-lg font-semibold">
                   Date of Birth: {pet.dateOfBirth}
                 </p>
-                <p className="text-neutral-950 text-lg font-semibold">Gender: {pet.gender}</p>
+                <p className="text-neutral-950 text-lg font-semibold">Gender: {Boolean(pet.gender)&&"Male"}
+                {!Boolean(pet.gender) && "Female"}</p>
                 <p className="text-neutral-950 text-lg font-semibold">
                   Health Status: {pet.healthStatus}
                 </p>
@@ -106,7 +106,8 @@ const PetProfile = ({ searchParams }: any) => {
             <div className="mb-4 mx-auto text-center">
               <h3 className="text-xl font-bold mb-2 text-zinc-50">Availability Status</h3>
               <p className="text-2xl text-neutral-950 font-semibold">
-                {pet.availableStatus}
+                {Boolean( pet.availableStatus) && "Available"}
+                {!Boolean( pet.availableStatus) && "Not Available"}
               </p>
             </div>
             <div className="flex justify-around">

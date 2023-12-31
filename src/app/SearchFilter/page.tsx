@@ -29,7 +29,7 @@ const SearchFilter = ({ searchParams }: any) => {
   return (
     <>
       <Headercomponent></Headercomponent>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 min-h-screen min-w-screen bg-inherit">
         <form
           onSubmit={(e: any) => {
             e.preventDefault();
